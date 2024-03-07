@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 char months[12][10] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
 float find_max(float arr[12]){
@@ -34,7 +35,17 @@ int find_month(float sale, float sales[12]){
     }
 }
 int main(){
-    float sales[12] = {23458.01, 40112.00, 56011.85, 37820.88, 37904.67, 60200.22, 72400.31, 56210.89, 67230.84, 68233.12, 80950.34, 95225.22};
+    char filename[50];
+    printf("Enter file name here: ");
+    scanf("%s", filename);
+    FILE *fp = fopen(filename, "r");
+    float sales[12];
+    for(int i=0; i<12; i++){
+        char str_sale[10], str_sale2[10];
+        fgets(str_sale, 20, fp);
+        sscanf(str_sale, "%s", str_sale2);
+        sales[i] = atof(str_sale2);
+    }
     printf("Monthly sales report for 2022:\nMonth\t\tSales\n");
     for(int i=0; i<12; i++){
         printf("%-10s\t$%0.2f\n", months[i], sales[i]);
